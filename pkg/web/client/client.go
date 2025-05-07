@@ -12,7 +12,7 @@ import (
 	"github.com/loikx/lazylab/pkg/web/request"
 )
 
-var NoHttpClientError = errors.New("http client is nil")
+var ErrNoHttpClient = errors.New("http client is nil")
 
 type (
 	HeaderKey   string
@@ -35,7 +35,7 @@ func New(retries int, client *http.Client) *Client {
 
 func (c *Client) Do() (*http.Response, error) {
 	if c.client == nil {
-		return nil, fmt.Errorf("can not perform request: %w", NoHttpClientError)
+		return nil, fmt.Errorf("can not perform request: %w", ErrNoHttpClient)
 	}
 
 	response, err := c.client.Do(c.request.ToHttpRequest())

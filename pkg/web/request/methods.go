@@ -1,6 +1,6 @@
 package request
 
-type RequestMethod int
+type Method int
 
 const (
 	GET = iota
