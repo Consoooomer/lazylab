@@ -51,6 +51,7 @@ func (q *Query) ToString() (string, error) {
 
 	queryArgsCount := len(q.queryArgs)
 	position := 1
+	q.mu.RLock()
 	for queryName, queryValue := range q.queryArgs {
 		_, err = builder.WriteString(queryName)
 		if err != nil {
@@ -76,6 +77,7 @@ func (q *Query) ToString() (string, error) {
 			return "", fmt.Errorf("can't write query separator: %w", err)
 		}
 	}
+	q.mu.RUnlock()
 
 	return builder.String(), nil
 }
